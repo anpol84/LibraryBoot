@@ -45,7 +45,6 @@ public class PersonService {
         }
         return person;
     }
-
     @Transactional
     public void save(Person person){
         personRepository.save(person);
@@ -58,13 +57,10 @@ public class PersonService {
         // person1.setBooks(person.getBooks());
         personRepository.save(person1);
     }
-
     @Transactional
     public void delete(int id){
         personRepository.delete(personRepository.findById(id).orElse(null));
     }
-
-
     public Person findByName(String name){
         return personRepository.findByName(name);
     }

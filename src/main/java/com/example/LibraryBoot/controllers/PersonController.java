@@ -17,7 +17,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/people")
 public class PersonController {
-
     private final PersonService personService;
     private final PersonValidator personValidator;
     @Autowired
@@ -26,13 +25,11 @@ public class PersonController {
         this.personValidator = personValidator;
         this.personService = personService;
     }
-
     @GetMapping
     public String index(Model model){
         model.addAttribute("people", personService.findAll());
         return "people/index";
     }
-
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         Person person = personService.setLater(id);
@@ -41,13 +38,11 @@ public class PersonController {
         model.addAttribute("books", books);
         return "people/show";
     }
-
     @GetMapping("/new")
     public String newPerson(Model model){
         model.addAttribute("person", new Person());
         return "people/new";
     }
-
     @PostMapping
     public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult){
         personValidator.validate(person, bindingResult);
@@ -57,16 +52,13 @@ public class PersonController {
         personService.save(person);
         return "redirect:/people";
     }
-
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model){
         model.addAttribute("person",personService.findById(id));
         return "people/edit";
     }
-
     @PatchMapping("/{id}")
-    public String update(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person,
-                         BindingResult bindingResult){
+    public String update(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person, BindingResult bindingResult){
         personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors()){
             return "people/edit";
@@ -74,7 +66,6 @@ public class PersonController {
         personService.update(person, id);
         return "redirect:/people";
     }
-
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id){
         personService.delete(id);

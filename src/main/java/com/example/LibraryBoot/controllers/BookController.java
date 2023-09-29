@@ -18,16 +18,13 @@ import java.util.ArrayList;
 @Controller
 @RequestMapping("/books")
 public class BookController {
-
     private final BookService bookService;
     private final PersonService personService;
-
     @Autowired
     public BookController(BookService bookService, PersonService personService) {
         this.bookService = bookService;
         this.personService = personService;
     }
-
     @GetMapping
     public String index(Model model, @RequestParam(name = "page", required = false) Integer page,
                         @RequestParam(name="books_per_page", required = false) Integer perPage,
@@ -35,7 +32,6 @@ public class BookController {
         model.addAttribute("books", bookService.findAll(page, perPage, sort));
         return "books/index";
     }
-
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person){
         Book book = bookService.findById(id);
@@ -44,7 +40,6 @@ public class BookController {
         if (book.getPerson() != null){
             model.addAttribute("concrete_people", personService.findById(book.getPerson().getId()));
         }
-
         return "books/show";
     }
 
@@ -68,9 +63,6 @@ public class BookController {
         }
         return "books/search";
     }
-
-
-
     @PostMapping
     public String create(@ModelAttribute("book")  @Valid Book book, BindingResult bindingResult){
         if (bindingResult.hasErrors()){

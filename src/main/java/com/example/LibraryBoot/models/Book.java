@@ -16,7 +16,6 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-
     @Column(name = "title")
     @NotEmpty(message = "field must not be empty")
     private String title;
@@ -34,7 +33,6 @@ public class Book {
     @Column(name = "taken_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date takenAt;
-
 
 
     public Book() {

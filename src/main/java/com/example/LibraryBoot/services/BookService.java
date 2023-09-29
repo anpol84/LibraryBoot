@@ -16,13 +16,11 @@ import java.util.List;
 public class BookService {
     private final BookRepository bookRepository;
     private final PersonRepository personRepository;
-
     @Autowired
     public BookService(BookRepository bookRepository, PersonRepository personRepository) {
         this.bookRepository = bookRepository;
         this.personRepository = personRepository;
     }
-
     public List<Book> findAll(Integer page, Integer perPage, Boolean sort){
         if (page != null && perPage != null && sort != null && sort){
             return bookRepository.findAll(PageRequest.of(page, perPage, Sort.by("yearOfCreation"))).
@@ -36,19 +34,15 @@ public class BookService {
         }
         return bookRepository.findAll();
     }
-
-
     public Book findById(int id){
         return bookRepository.findById(id).orElse(null);
     }
-
     public List<Book> findStartingWith(String pattern){
         return bookRepository.findBooksByTitleStartingWith(pattern);
     }
 
     @Transactional
     public void save(Book book){
-
         bookRepository.save(book);
     }
     @Transactional
@@ -59,7 +53,6 @@ public class BookService {
         book1.setYearOfCreation(book.getYearOfCreation());
         bookRepository.save(book1);
     }
-
     @Transactional
     public void delete(int id){
         bookRepository.delete(bookRepository.findById(id).orElse(null));
